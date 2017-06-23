@@ -1,0 +1,28 @@
+ErrorDocument 403 "/templates/winbox.forbidden.html"
+
+# Block External Access
+<If "%{SERVER_PORT} != 24832">
+	Deny from all
+	Allow from 127.0.0.1
+</If>
+
+<IfModule mod_rewrite.c>
+	<IfModule mod_negotiation.c>
+		Options -MultiViews
+	</IfModule>
+	
+	RewriteEngine On
+	
+	# Redirect Trailing Slashes If Not A Folder...
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)/$ /$1 [L,R=301]
+	
+	# Handle Local Messages
+	RewriteCond %{SERVER_PORT} 24832
+	RewriteRule ^ winbox.messages.php [L]
+	
+	# Handle Front Controller
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^ index.php [L]
+</IfModule>

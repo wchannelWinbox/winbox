@@ -1,0 +1,126 @@
+@font-face { font-family:HelveticaNeue; src:url(../fonts/HelveticaNeue.otf); }
+@font-face { font-family:HelveticaNeue; src:url(../fonts/HelveticaNeue-Bold.otf); font-weight:bold; }
+@font-face { font-family:UbuntuMono; src:url(../fonts/UbuntuMono.ttf); }
+
+/** GENERAL STYLES **/
+* { font-family:HelveticaNeue; cursor:default; }
+html, body, body>#player, body>#player-mask, body>#channel-background {
+	width:100vw; height:100vh; margin:0px; padding:0px; border:none; position:absolute; top:0px; right:0px; bottom:0px; left:0px; overflow:hidden;
+}
+body { background:url(../pictures/background.jpg) no-repeat center center fixed; background-size:cover; }
+body>#player, body>#player-mask { background:transparent; }
+body>#channel-logo { height:120px; position:absolute; top:20px; right:20px; display:table; } body>#channel-logo img { height:120px; }
+body>#client-logo { height:120px; position:absolute; top:20px; left:20px; display:table; } body>#client-logo img { height:120px; }
+body>#channel-logo span, body>#client-logo span {
+	display:table-cell; vertical-align:middle; font-size:35px; font-weight:bold; color:white; text-shadow:0px 0px 15px black;
+}
+
+/** MODAL STYLES **/
+.modal { text-align:center; padding:0px !important; }
+.modal-dialog { display:inline-block; vertical-align:middle; }
+.modal:before { content:''; display:inline-block; height:100%; vertical-align:middle; margin-right:-5px; }
+.modal-content, .modal-header, .modal-body, .modal-footer { border:none; }
+.modal-header { padding:15px; } .modal-body { padding:0px 15px; } .modal-header, .modal-body { text-align:left; }
+.modal-footer { padding:15px; text-align:center; }
+
+/** ACTIVATION MODAL STYLES **/
+#modal-activation .modal-header, #modal-activation .modal-body { text-align:center; } #modal-activation .modal-body { padding:0px 50px; }
+#modal-activation .modal-header, #modal-activation .modal-footer { padding:30px 15px; } #modal-activation .modal-title { color:#f60; }
+#modal-activation label { margin-bottom:10px; } #modal-activation .modal-footer button { width:150px; color:white; background:#228bbe; }
+#modal-activation .modal-footer button, #modal-activation .modal-footer button * { cursor:pointer; }
+#modal-activation label { color:#228bbe; } #modal-activation .modal-footer button:hover { background:#175b7c; }
+#modal-license, #modal-server { margin-top:20px; } #modal-activation [class^=col-] { padding:0px 7.5px; }
+#modal-license input { font-family:UbuntuMono; text-transform:uppercase; cursor:text; }
+#modal-server .dropdown-menu a { padding:5px 15px; cursor:pointer; }
+#modal-server .dropdown-toggle { text-align:left; } #modal-server .caret { float:right; position:relative; top:-12px; }
+#modal-server .dropdown-menu { width:calc(100% - 15px); min-width:auto; margin-left:7.5px; padding-left:0px; }
+
+/** WINBOX LOGO **/
+#logo { width:60px; height:60px; background:white; position:absolute; right:0px; bottom:0px; }
+
+/** WINBOX MENU **/
+#menu-area { width:40px; height:40px; position:absolute; top:0px; left:0px; z-index:10; } #menu-area * { cursor:pointer; } #menu {
+	width:75px; height:35px; color:#888; background:#ccc; border-radius:10px 10px 0px 0px; display:table;
+	position:relative; left:0px; transform:rotate(90deg); transform-origin:0% 0%; z-index:10;
+}
+#menu b { display:table-cell; vertical-align:middle; } #modal-winbox .modal-header button { padding:10px; } #modal-winbox .nav-tabs { border:none; }
+#modal-winbox .nav-tabs>li>a { padding:10px; color:#555 !important; border:1px solid transparent; border-bottom:2px solid transparent; background:none; }
+#modal-winbox .nav-tabs>li>a:hover { border-bottom:2px solid #ddd; } #modal-winbox .nav-tabs>li>a:focus { outline:none; }
+#modal-winbox .nav-tabs>li.active>a { border-bottom:2px solid #555; }
+
+/** lATERAL AND BOTTOM WIDGET **/
+#lateral { height:100vh; position:absolute; top:0px; left:100vw; }
+#bottom { position:absolute; bottom:0px; left:0px; background:black; background-repeat:no-repeat; background-position:center; background-size:cover; }
+
+/** WEATHER AND FORECAST WIDGET **/
+#weather { width:100px; height:60px; background:white; position:absolute; right:60px; bottom:0px; display:none; }
+#weather img { width:45px; height:35px; margin:10px; position:absolute; top:0px; left:0px; }
+#weather b { font-size:18px; line-height:20px; display:table-cell; vertical-align:middle; padding-left:50px; }
+#forecast { height:calc(100vh - 320px); background:rgba(255,255,255,0.75); position:absolute; top:160px; left:100vw; }
+#forecast .item { padding:2.5px; position:absolute; left:0px; } #forecast img { width:80%; opacity:0.75;}
+#forecast b { font-size:15px; line-height:15px; opacity:1; } #forecast b[class^=text-] { font-size: 15px; line-height: 15px; }
+
+/** RSS WIDGET **/
+#rss {
+	width:calc(100vw - 210px); height:60px; padding:0px 15px; background:white;
+	position:absolute; left:150px; bottom:0px; overflow:hidden; display:none;
+}
+#rss [id^=rss], #rss [id^=news] { font-size:30px; line-height:60px; font-weight:bold; position:absolute; z-index:5; }
+#rss #top-mask { width:100%; height:7.5px; background:white; position:absolute; top:0px; left:0px; z-index:10; }
+#rss #bottom-mask { width:100%; height:7.5px; background:white; position:absolute; bottom:0px; left:0px; z-index:10; }
+#rss #left-border { width:1px; height:40px; background:#888; position:absolute; top:10px; left:0px; }
+#rss #right-border { width:1px; height:40px; background:#888; position:absolute; top:10px; right:0px; }
+#rss .news-title { text-transform:uppercase; }
+
+/** STATUS WIDGET **/
+#status { width:150px; height:60px; background:white; position:absolute; left:0px; bottom:0px; }
+#status-light { width:5px; height:55px; position:absolute; left:2.5px; bottom:2.5px; }
+#status-datetime { width:100%; height:60px; padding:5px 10px; display:table; } #status-datetime b { display:table-cell; vertical-align:middle; }
+#status-date { font-size:20px; line-height:20px; } #status-time { font-size:27.5px; line-height:27.5px; }
+#status-light.inactive {
+	border:1px solid #444; background:linear-gradient(to bottom, #ccc 0%, #888 50%, #ccc 100%); box-shadow: 0px 0px 5px 0px #444;
+}
+#status-light.undefined {
+	border:1px solid #840; background:linear-gradient(to bottom, #fc4 0%, #c80 50%, #fc4 100%); box-shadow: 0px 0px 5px 0px #840;
+}
+#status-light.updating {
+	border:1px solid #008; background:linear-gradient(to bottom, #44c 0%, #00a 50%, #44c 100%); box-shadow: 0px 0px 5px 0px #008;
+}
+#status-light.disconnected {
+	border:1px solid #800; background:linear-gradient(to bottom, #f44 0%, #c00 50%, #f44 100%); box-shadow: 0px 0px 5px 0px #800;
+}
+#status-light.connected {
+	border:1px solid #080; background:linear-gradient(to bottom, #4c4 0%, #0a0 50%, #4c4 100%); box-shadow: 0px 0px 5px 0px #080;
+}
+
+#MESSAGES{padding-left:5px; padding-right: 5px; text-align:center; vertical-align:middle;color: white; font-size: 34px;background-color: black; height: 150px; line-height: 100px; width: 100%; position: relative; z-index: 999;}
+.msg-img{width:80px; height: 80px; float: left; margin-top: 32px;}
+
+.status_no_rss{border-radius: 0px 10px 0px 0px !important; background:rgba(255,255,255,0.75) !important}
+.logo_no_rss{background: transparent !important;}
+.weather_no_rss{background: transparent !important;}
+
+.status_rss{border-radius: 0px 0px 0px 0px !important;}
+.logo_rss{background: white !important;}
+.weather_rss{background: white !important;}
+#rss2, #MESSAGES, #lateral, #bottom,#channel-background,#channel-logo,#client-logo,#logo,#forecast,#weather,#rss,#status{-moz-user-select:none !important;}
+#rss2{
+width: 1280px;
+height: 60px;
+background-color : white;
+display: block;
+position: absolute;
+bottom: 60px;
+padding-left: 30px;
+overflow:hidden;
+}
+#rss2 [id^=rss], #rss [id^=news] { font-size:30px; line-height:60px; font-weight:bold; position:absolute; z-index:5; }
+#rss2 #top-mask { width:100%; height:7.5px; background:white; position:absolute; top:0px; left:0px; z-index:10; }
+#rss2 #bottom-mask { width:100%; height:7.5px; background:white; position:absolute; bottom:0px; left:0px; z-index:10; }
+#rss2 #left-border { width:1px; height:40px; background:#888; position:absolute; top:10px; left:0px; }
+#rss2 #right-border { width:1px; height:40px; background:#888; position:absolute; top:10px; right:0px; }
+#rss2 .news-title { text-transform:uppercase; }
+.marquee {
+  width: 97%;
+  overflow: hidden;
+}

@@ -1,0 +1,396 @@
+<style type="text/css">
+	#osk-container{
+		z-index: 9999;
+		top: 30% !important;
+		left: 25% !important;
+	}
+	#modal_winbox_all{
+		width: 670px !important;
+	}
+</style>
+<div class="modal fade" id="modal-winbox" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+	<style type="text/css">
+		#modal-winbox .modal-title li, #modal-winbox .modal-title li * { cursor:pointer; } #modal-winbox .modal-body { height:60vh; padding:0px 30px; }
+		#estado [class^=col-xs-] { margin-bottom:10px; } #estado hr { margin:15px 0px; } #estado .progress { margin-bottom:0px; position:relative; }
+		#estado .progress-bar span { position:absolute; width:100%; display:block; color:black; }
+		#logs pre:before { display:none; } #logs pre:after { content:''; } #logs pre { height:60vh; max-height:60vh; font-size:11px; overflow-x:hidden; }
+	</style>
+	<script type="text/javascript" src="templates/modal-winbox.js"></script>
+	<div class="modal-dialog" id="modal_winbox_all">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title text-left">
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active">
+							<a href="#estado" aria-controls="estado" role="tab" data-toggle="tab"><b>Estado</b></a>
+						</li>
+						<li role="presentation">
+							<a href="#logs" aria-controls="logs" role="tab" data-toggle="tab"><b>Logs</b></a>
+						</li>
+						<li role="presentation">
+							<a href="#videos" aria-controls="videos" role="tab" data-toggle="tab"><b>Videos</b></a>
+						</li>
+					</ul>
+				</h4>
+			</div>
+			<div class="modal-body tab-content text-left">
+				<div role="tabpanel" class="tab-pane active" id="estado">
+					<div class="row">
+						<div class="col-xs-12"><b><u>Información del sistema</u></b></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3"><b>Disco duro:</b></div>
+						<div class="col-xs-9">
+							<div class="progress" id="hdd">
+								<div class="progress-bar" role="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">&nbsp;</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3"><b>Memoria RAM:</b></div>
+						<div class="col-xs-9">
+							<div class="progress" id="ram">
+								<div class="progress-bar" role="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">&nbsp;</div>
+							</div>
+						</div>
+					</div><hr>
+					<div class="row">
+						<div class="col-xs-12"><b><u>Información de red</u></b></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-4"><b>Estado:</b>&nbsp;<span class="label label-default" id="network">-</span></div>
+						<div class="col-xs-4"><b>IP:</b>&nbsp;<span id="ip">&nbsp;</span></div>
+						<div class="col-xs-4"><b>MAC:</b>&nbsp;<span id="mac">&nbsp;</span></div>
+					</div><hr>
+					<div class="row">
+						<div class="col-xs-12"><b><u>Información de cliente</u></b></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3"><b>Versión:</b></div>
+						<div class="col-xs-9" id="version">&nbsp;</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3"><b>Licencia:</b></div>
+						<div class="col-xs-9" id="license">&nbsp;</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3"><b>Servidor:</b></div>
+						<div class="col-xs-9" id="server">&nbsp;</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="logs">
+					<pre class="row"></pre>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="videos" style="height:100%">
+					 <div class="row" id="videos_demand" style="height: 100%; overflow: auto;">
+					 	  <div id="virtualKeyboard"></div>
+					 	  Reproducciones<br>
+						  <input type="radio" name="loop" value="0" checked> 1 
+						  <input type="radio" name="loop" value="1"> 2 
+						  <input type="radio" name="loop" value="2"> 3 
+						  <input type="radio" name="loop" value="3"> 4 
+						  <table class="table" id="videos_demand_table">
+						    <thead>
+						      <tr>
+						        <th>Image</th>
+						        <th>Title</th>
+						        <th>Option</th>
+						      </tr>
+						    </thead>
+						    <tbody id="table_body">
+						    </tbody>
+						  </table>
+
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button></div>
+		</div>
+	</div>
+</div>
+	<div id="aviso_modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title text-left"><b>AVISO</b></h4>
+				</div>
+				<div class="modal-body text-left">El video se reproducira despues de 3 segundos</div>
+				<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button></div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	$( document ).ready(function() {
+    	var table = $('#videos_demand_table').DataTable( {
+    		paging: false
+		});
+
+	    $('#videos_demand_table tbody').on('click', '.play_demand_icon', function () {
+    		var file = $(this).attr('data-file');
+    		var type_load = $(this).attr('data-type');
+    		var frame = document.getElementById("player");
+
+			// using reference to iframe (ifrm) obtained above
+			var win = frame.contentWindow; // reference to iframe's window
+			// reference to document in iframe
+			var doc = frame.contentDocument? frame.contentDocument: frame.contentWindow.document;
+			// reference to form named 'demoForm' in iframe
+			var loop = doc.getElementById('loop_video');			
+			var type = doc.getElementById('type_content');			
+			var text = doc.getElementById('text_content');
+			if(type.value == 'video' && text.value=="SIN-TEXTO"){
+				var video = doc.getElementById('video');
+	    		
+	    		$('#modal-winbox').modal('hide');
+	    		$('#aviso_modal').modal('show');
+
+	    		var radioValue = $("input[name='loop']:checked").val();
+	    		loop.value = radioValue;
+
+	    		function explode(){
+				  $('#aviso_modal').modal('hide');
+				  if(type_load=='demand'){
+				  	video.src = "data/media/demand/"+file;
+				  }else{
+				  	video.src = "data/media/"+file;
+				  }
+				  
+				  
+				}
+
+				setTimeout(explode, 3000);
+			}else{
+
+				if(type.value!='video'){
+					$('#player')[0].contentWindow.myStopFunction();
+				}
+				
+	    		$('#modal-winbox').modal('hide');
+	    		$('#aviso_modal').modal('show');
+
+	    		var radioValue = $("input[name='loop']:checked").val();
+	    		loop.value = radioValue;
+
+				var video = doc.createElement('video');
+				video.className = 'media';
+				video.id="video";
+
+				  if(type_load=='demand'){
+				  	video.src = "data/media/demand/"+file;
+				  }else{
+				  	video.src = "data/media/"+file;
+				  }
+
+				video.autoplay = true;
+
+ 
+
+	    		function explode(){
+	    			$("#player").contents().find(".contenedor_image").remove();
+					$('#aviso_modal').modal('hide');
+					doc.body.appendChild(video); 
+					video.load();
+					video.addEventListener('ended', function () {  
+						var loop = doc.getElementById('loop_video'); 
+
+						
+						if(loop.value == 0){
+							win.location.reload(true); 
+						}else{
+							loop.value = loop.value -1;
+							var t = doc.getElementById('video');
+							t.play();
+						}   
+						 
+					}, false);
+				  
+				}
+
+				setTimeout(explode, 3000);
+			}
+	    } );
+
+	    function playDistancia(file_distancia, repeticiones){
+    		var file = file_distancia;
+    		var type_load = 'library';
+    		var frame = document.getElementById("player");
+
+			// using reference to iframe (ifrm) obtained above
+			var win = frame.contentWindow; // reference to iframe's window
+			// reference to document in iframe
+			var doc = frame.contentDocument? frame.contentDocument: frame.contentWindow.document;
+			// reference to form named 'demoForm' in iframe
+			var loop = doc.getElementById('loop_video');			
+			var type = doc.getElementById('type_content');			
+			var text = doc.getElementById('text_content');
+			if(type.value == 'video' && text.value=="SIN-TEXTO"){
+				var video = doc.getElementById('video');
+	    		
+	    		$('#modal-winbox').modal('hide');
+	    		$('#aviso_modal').modal('show');
+
+	    		var radioValue = $("input[name='loop']:checked").val();
+	    		loop.value = repeticiones;
+
+	    		function explode(){
+				  $('#aviso_modal').modal('hide');
+				  if(type_load=='demand'){
+				  	video.src = "data/media/demand/"+file;
+				  }else{
+				  	video.src = "data/media/"+file;
+				  }
+				  
+				  
+				}
+
+				setTimeout(explode, 3000);
+			}else{
+
+				if(type.value!='video'){
+					$('#player')[0].contentWindow.myStopFunction();
+				}
+				
+	    		$('#modal-winbox').modal('hide');
+	    		$('#aviso_modal').modal('show');
+
+	    		var radioValue = $("input[name='loop']:checked").val();
+	    		loop.value = radioValue;
+
+				var video = doc.createElement('video');
+				video.className = 'media';
+				video.id="video";
+
+				  if(type_load=='demand'){
+				  	video.src = "data/media/demand/"+file;
+				  }else{
+				  	video.src = "data/media/"+file;
+				  }
+
+				video.autoplay = true;
+
+ 
+
+	    		function explode(){
+	    			$("#player").contents().find(".contenedor_image").remove();
+					$('#aviso_modal').modal('hide');
+					doc.body.appendChild(video); 
+					video.load();
+					video.addEventListener('ended', function () {  
+						var loop = doc.getElementById('loop_video'); 
+
+						
+						if(loop.value == 0){
+							win.location.reload(true); 
+						}else{
+							loop.value = loop.value -1;
+							var t = doc.getElementById('video');
+							t.play();
+						}   
+						 
+					}, false);
+				  
+				}
+
+				setTimeout(explode, 3000);
+			}
+	    }
+
+		function UrlExists(url)
+		{
+		    var http = new XMLHttpRequest();
+		    http.open('HEAD', url, false);
+		    http.send();
+		    return http.status!=404;
+		}
+
+		var update_table  = function() {
+			$.getJSON("data/config.json", function(config) {
+				try{
+					CONFIG = config;
+					$("#table_body").empty();
+					table.rows( 'tr' ).remove().draw();
+
+					for (i = 0; i < CONFIG.channel.demand.length; i++) {
+						var file = CONFIG.channel.demand[i].value.split("/"); 
+						var exist =UrlExists("data/media/demand/"+CONFIG.channel.demand[i].id+"-"+file[3]);
+						var exist_preview =UrlExists("data/media/demand/"+CONFIG.channel.demand[i].id+"-imagen_preview.png");
+						
+						if(CONFIG.channel.demand[i].type == 'video' && exist){
+							table.row.add( [
+										"<img src='data/media/demand/"+CONFIG.channel.demand[i].id+"-imagen_preview.png' width='100' height='100' >",
+
+							            file[3],
+
+							            "<img class='play_demand_icon' style='cursor:pointer;' data-type='demand' data-file='"+CONFIG.channel.demand[i].id+"-"+file[3]+"'  src='pictures/play-icon.png' width='50' height='50' >",
+							        ] ).draw( false );
+						}
+
+					    //$("#table_body").append(str);
+					}
+
+					biblioteca = '';
+					$.post("../winbox.videos.php", function(response){
+						videos_descargados =JSON.parse(response);
+
+
+
+						for(x in videos_descargados){
+
+							var video_win = videos_descargados[x].split("-");
+							video_win = video_win[0];
+
+							var video_dist = CONFIG.videosDistancia.split("-");
+							video_dist_id = video_dist[0];
+
+							if(video_win == video_dist_id){
+								playDistancia(videos_descargados[x], video_dist[1]);
+							}
+
+						    biblioteca = biblioteca + videos_descargados[x] + ';';
+							table.row.add( [
+										"<img src='pictures/video.png' width='100' height='100' >",
+
+							            videos_descargados[x],
+
+							            "<img class='play_demand_icon' style='cursor:pointer;' data-type='library' data-file='"+videos_descargados[x]+"'  src='pictures/play-icon.png' width='50' height='50' >",
+							        ] ).draw( false );
+						}
+
+						console.log(biblioteca);
+						$.post(CONFIG.host+'/winbox/biblioteca_winbox', {winbox:CONFIG.winbox.id, videos:biblioteca},function(response){
+							videos_descargados =JSON.parse(response);
+								console.log(response);
+
+						});
+
+					});
+
+
+
+				}catch(err){
+					
+					CONFIG = config;
+					if(config.winbox.id != 0){
+						window.location.reload('true');
+					}
+					console.log(err);
+				}
+
+			});
+		};
+
+    	$('.dataTables_filter input').onScreenKeyboard();
+    	update_table();
+    	setInterval(function(){ 
+
+    		update_table();
+
+    	}, 60000);
+
+
+
+
+	});
+</script>
