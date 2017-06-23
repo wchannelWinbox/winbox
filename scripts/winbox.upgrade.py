@@ -20,13 +20,9 @@ if len( sys.argv )!=2 or sys.argv[1]!="--forced":
 else:
 	LOG("WARN", "Force upgrading winbox firmware...")
 
+
 try:
-	version = requests.get( URL ).json()
-	v_addr  = CONFIG["host"] + "/files/707-" + str(version["id"]) + "-installer_file/" + version["file"]
-	os.system("cd /home/winbox; rm -rf winbox/data/.upgrade winbox.zip; wget -c --read-timeout=300 --tries=5 \"" + v_addr + "\" -O winbox.zip")
-	if not os.path.isfile("/home/winbox/winbox.zip") or os.path.getsize("/home/winbox/winbox.zip")==0:
-		exit()
-	os.system("cd /home/winbox; unzip -o winbox.zip; rm -rf winbox.zip;")
+	os.system("bash /home/winbox/winbox/scripts/winbox.pull.sh;")
 	if os.path.isfile(__HOME__ + "/data/.free"):
 		os.system("cp " + __HOME__ + "/data/.free_winbox.run.sh " + __HOME__ + "/scripts/winbox.run.sh")
 	LOG("WARN", "=> Current winbox firmware is " + version["version"])
