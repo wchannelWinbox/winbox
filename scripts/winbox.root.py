@@ -29,11 +29,11 @@ try:
 		print "      2. Remove license"
 		print "      3. Remove media files"
 		print "      4. Force upgrade version"
-		print "      5. Terminal mode\n"
-		print "      6. Change Resolution\n"
-		print "      7. Change Ip\n"
-		print "      8. Ip DHCP\n"
-		print "      9. Remove License (forced)\n"
+		print "      5. Terminal mode"
+		print "      6. Change Resolution"
+		print "      7. Change Ip"
+		print "      8. Ip DHCP"
+		print "      9. Remove License (forced)"
 		print "      0. Exit\n"
 		
 		option = raw_input("\033[0;1m    Choose your option: \033[0m")

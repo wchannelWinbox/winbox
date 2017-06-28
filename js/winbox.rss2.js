@@ -8,7 +8,7 @@
 		
 		/*console.clear();*/ $.getJSON("data/rss2.json?0", function(rss) {
 			if( rss.length>0 && CONFIG.channel.rss2[0].enabled != false) {
-				console.log('5 rss');
+				
 				NEWS.index = -1;
 				RSS.next = rss; $("#rss2 [id^=news]").remove(); $("#rss2").show();
 				if( !$("#rss2 [id^=rss]").length ) { RSS.NEXT(); }
@@ -51,7 +51,7 @@
 			}else{
 				coloso = 1;
 			}
-			console.log('7 rss');
+			
 			if( RSS.lateral != '' && CONFIG.channel.rss2[0].enabled != false ) {
 				
 				if (coloso == 0 || !$("#rss2").is(":visible") || $("#rss2 [id^=rss-]").length) {

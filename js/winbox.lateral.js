@@ -2,7 +2,6 @@
 $(function() {
 
 	var SHOW_LATERAL = function() {
-		console.log("show lateral");
 		try{
 			if( !("lateral" in CONFIG.channel) || !CONFIG.channel.lateral.enabled || CONFIG.channel.imagenesLaterales.length <= 0 || CONFIG.channel.lateral.interval==0 ) {
 				setTimeout(SHOW_LATERAL, 1000); return;

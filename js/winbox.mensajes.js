@@ -2,9 +2,6 @@
 $(function() {
 	var SHOW_MESSAGES = function(duracion, mensaje, color) {
 
-		console.log(duracion);
-		console.log(mensaje);
-		console.log($('#MESSAGES').text().length);
 		if ( $('#MESSAGES').text().length == 0 ){
 			if(mensaje.length > 50){
 				$("#MESSAGES").css('line-height','75px');

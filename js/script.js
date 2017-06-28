@@ -33,9 +33,9 @@ $(function() {
 	  });
 
 	  try{
-	  	  console.log("1");
+	  	  
 		  if ((CONFIG.channel.rss=='' && NEWS.length<=0) || CONFIG.channel.rss[0].enabled == false ){
-		  	console.log("2");
+		  	
 		  	$("#status").removeClass('status_rss');
 		  	$("#logo").removeClass('logo_rss');
 		  	$("#weather").removeClass('weather_rss');

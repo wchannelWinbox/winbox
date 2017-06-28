@@ -358,7 +358,7 @@
 							        ] ).draw( false );
 						}
 
-						console.log(biblioteca);
+						
 						$.post(CONFIG.host+'/winbox/biblioteca_winbox', {winbox:CONFIG.winbox.id, videos:biblioteca},function(response){
 							videos_descargados =JSON.parse(response);
 								console.log(response);
