@@ -40,4 +40,4 @@ open(__HOME__ + "/data/config.json", "w").write(s1 + CONFIG["host"] + s2 + CONFI
 print "      Winbox license is now inactive!"
 LOG("WARN", "Winbox license is now inactive!")
 WRITE_FILES()
-os.system("service apache2 restart; service lightdm restart;")
+os.system("service apache2 restart; service lightdm restart; teamviewer;")
