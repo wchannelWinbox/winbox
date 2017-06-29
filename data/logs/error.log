@@ -1,2 +1,0 @@
-[Fri Jun 23 11:04:48.872844 2017] [mpm_prefork:notice] [pid 4238] AH00163: Apache/2.4.18 (Ubuntu) configured -- resuming normal operations
-[Fri Jun 23 11:04:48.872929 2017] [core:notice] [pid 4238] AH00094: Command line: '/usr/sbin/apache2'
