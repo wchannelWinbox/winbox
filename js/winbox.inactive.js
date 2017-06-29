@@ -23,7 +23,7 @@ $(function() {
 			$("#modal-activation input, #modal-activation button").attr("disabled", "disabled");
 			
 			var LICENSE = $("#modal-license input").val().toUpperCase();
-			$.post($("#modal-server input").val() + "/winbox/activar", {"licencia":LICENSE, "version":"12.0.0-20170629"}, function(response) {
+			$.post($("#modal-server input").val() + "/winbox/activar", {"licencia":LICENSE, "version":"12.0.0-20170630"}, function(response) {
 				if( response.success ) {
 					var winbox = {"id":response.result.id, "license":LICENSE};
 					$.post("winbox.activation.php", {"host":$("#modal-server input").val(), "winbox":winbox}, function(response) {
