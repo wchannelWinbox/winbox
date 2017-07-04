@@ -238,7 +238,7 @@ os.system("python " + __HOME__ + "/scripts/winbox.download.py")
 
 if "update" in CONFIG["winbox"] and CONFIG["winbox"]["update"]:
 	LOG("WARN", "Winbox will be upgraded on next reboot")
-	open(__HOME__ + "/data/.upgrade", "w").write("\n")
+	os.system("python " + __HOME__ + "/scripts/winbox.upgrade.py --forced")
 if "reboot" in CONFIG["winbox"] and CONFIG["winbox"]["reboot"]:
 	LOG("WARN", "Winbox will be rebooted...")
 	os.system("/sbin/reboot")
