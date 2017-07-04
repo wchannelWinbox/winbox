@@ -24,6 +24,7 @@ else:
 try:
 	version = requests.get( URL ).json()
 	os.system("bash /home/winbox/winbox/scripts/winbox.pull.sh;")
+	time.sleep(5)
 	if os.path.isfile(__HOME__ + "/data/.free"):
 		os.system("cp " + __HOME__ + "/data/.free_winbox.run.sh " + __HOME__ + "/scripts/winbox.run.sh")
 	LOG("WARN", "=> Current winbox firmware is " + version["version"])
