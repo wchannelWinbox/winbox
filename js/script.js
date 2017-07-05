@@ -34,7 +34,7 @@ $(function() {
 
 	  try{
 	  	  
-		  if ((CONFIG.channel.rss=='' && NEWS.length<=0) || CONFIG.channel.rss[0].enabled == false ){
+		  if ((CONFIG.channel.rss=='' && NEWS.length<=0) && CONFIG.channel.rss[0].enabled == false ){
 		  	
 		  	$("#status").removeClass('status_rss');
 		  	$("#logo").removeClass('logo_rss');
@@ -53,7 +53,7 @@ $(function() {
 		  	$("#weather").addClass('weather_rss');
 		  }
 
-		  if (CONFIG.time_format=="" && CONFIG.date_format=="" && ((CONFIG.channel.rss=='' && NEWS.length<=0) || CONFIG.channel.rss[0].enabled == false ) ){
+		  if (CONFIG.time_format=="" && CONFIG.date_format=="" && ((CONFIG.channel.rss=='' && NEWS.length<=0) && CONFIG.channel.rss[0].enabled == false ) ){
 		  	$("#status").removeClass('status_no_rss');
 		  	$("#status").css('background','transparent');
 		  }else{
